@@ -12,11 +12,13 @@
  */
 namespace Tmdb\Model;
 
+use JsonSerializable;
+
 /**
  * Class AbstractModel
  * @package Tmdb\Model
  */
-class AbstractModel
+abstract class AbstractModel implements JsonSerializable
 {
     /**
      * List of properties to populate by the ObjectHydrator
@@ -24,4 +26,17 @@ class AbstractModel
      * @var array
      */
     public static $properties = [];
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array_intersect_key(
+            get_object_vars($this),
+            array_flip(self::$properties)
+        );
+    }
 }
