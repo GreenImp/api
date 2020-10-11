@@ -42,4 +42,16 @@ abstract class CollectionToCommaSeperatedString extends GenericCollection implem
     {
         return implode(',', $this->data);
     }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array_merge(parent::jsonSerialize(), [
+            'value' => $this->getValue(),
+        ]);
+    }
 }

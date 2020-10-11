@@ -100,4 +100,19 @@ class ResultCollection extends GenericCollection
     {
         return $this->totalResults;
     }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'data' => $this->toArray(),
+            'page' => $this->getPage(),
+            'totalPages' => $this->getTotalPages(),
+            'totalResults' => $this->getTotalResults(),
+        ];
+    }
 }

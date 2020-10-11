@@ -23,7 +23,7 @@ use Tmdb\Model\Filter\LanguageFilter;
  * Class GenericCollection
  * @package Tmdb\Model\Common
  */
-class GenericCollection implements \ArrayAccess, \IteratorAggregate, \Countable
+class GenericCollection implements \ArrayAccess, \IteratorAggregate, \Countable, \JsonSerializable
 {
     /** @var array Data associated with the object. */
     protected $data = [];
@@ -411,5 +411,17 @@ class GenericCollection implements \ArrayAccess, \IteratorAggregate, \Countable
                 }
             }
         );
+    }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'data' => $this->toArray(),
+        ];
     }
 }

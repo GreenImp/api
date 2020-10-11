@@ -20,7 +20,7 @@ use Tmdb\Model\Collection\People\GuestStars;
  * Class CreditsCollection
  * @package Tmdb\Model\Collection
  */
-class CreditsCollection
+class CreditsCollection implements \JsonSerializable
 {
     /**
      * @var Cast
@@ -31,7 +31,6 @@ class CreditsCollection
      * @var Crew
      */
     private $crew;
-
 
     private $guestStars;
 
@@ -98,4 +97,17 @@ class CreditsCollection
     {
         $this->guestStars = $guestStars;
     }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+{
+    return [
+        'cast' => $this->getCast(),
+        'crew' => $this->getCrew(),
+    ];
+}
 }
